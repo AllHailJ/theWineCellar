@@ -2,23 +2,6 @@
 
 <?php include("style.php") ?>
 
-<body>
-
-<header>
-  <h1>the Wine Cellar</h1>
-</header>
-
-<section>
-  <nav>
-    <ul>
-      <li><a href="home.php">Home</a></li>
-      <li><a href="cellaradd.php">Cellar Add</a></li>
-      <li><a href="cellar.php">Cellar Display</a></li>
-      <li><a href="cellardrink.php">Cellar Drink</a></li>
-      <li><a href="about.php">About</a></li>
-    </ul>
-  </nav>
-   
   <div id="About">
     <p style = "margin-left: 290px;"> &copy;2021 Jonny L. Gent. All Rights Reserved </p>
 

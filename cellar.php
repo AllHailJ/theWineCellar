@@ -2,24 +2,6 @@
 
 <?php include("style.php") ?>
 
-<body>
-
-<header>
-  <h1>the Wine Cellar</h1>
-</header>
-
-<section>
-  <nav>
-    <ul>
-      <li><a href="home.php">Home</a></li>
-      <li><a href="cellaradd.php">Cellar Add</a></li>
-      <li><a href="cellar.php">Cellar Display</a></li>
-      <li><a href="cellardrink.php">Cellar Drink</a></li>
-      <li><a href="about.php">About</a></li>
-    </ul>
-  </nav>
-
-
   <form target="_self">
     Col:<input type="number" size="2" maxlength="2" min="1" max= "31" value="1" name="icol">
 <!--    Row:<input type="number" size="2" maxlength="2" min="1" max= "23" name="irow"> -->

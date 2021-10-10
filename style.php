@@ -71,3 +71,22 @@ Make the dual columns stack instead of side by side, on small screens
 }
 </style>
 </head>
+
+<body>
+
+<header>
+  <h1>the Wine Cellar</h1>
+</header>
+
+<section>
+  <nav>
+    <ul>
+      <li><a href="home.php">Home</a></li>
+      <li><a href="cellaradd.php">Add</a></li>
+      <li><a href="cellardrink.php">Drink</a></li>
+      <li><a href="cellar.php">List</a></li>
+      <li><a href="cellarreview.php">Review</a></li>
+      <li><a href="about.php">About</a></li>
+    </ul>
+  </nav>
+  
