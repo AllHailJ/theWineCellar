@@ -21,7 +21,9 @@
     <label for="jyear">Year</label>
     <label for="jcountry">Country</label>
     <label for="jregion">Region</label>
-    <label for="jreview">Review</label> <br> -->
+    <label for="jreview">Review</label> <br>
+    <label for="jredwhite">RedWhite</label> <br>
+    <label for="jprice">Price</label> <br> -->        
     <input type="number" size="2" maxlength="2" min="1" max= "31" value="1" name="icol" required>
     <input type="number" size="2" maxlength="2" min="1" max= "23" value="1" name="irow" required>
     <input type="text" size="10" maxlength="10" value="1/1/1990" name="jdate" required>
@@ -32,6 +34,8 @@
     <input type="text" size="10" maxlength="20" value="Country" name="jcountry" required>
     <input type="text" size="15" maxlength="30"  value="Region" name="jregion" required>
     <input type="text" size="30" maxlength="2048" value="Review"name="jreview" required>
+    <input type="text" size="6" maxlength="6" value="RedWhite"name="jredwhite" required>
+    <input type="text" size="6" maxlength="6" value="Price"name="jprice" required>
     <input type="submit" name="add" id="add" value="add">
   </form>
  
@@ -62,6 +66,8 @@
         $in_country  = $_GET["jcountry"];
         $in_region   = $_GET["jregion"];
         $in_review   = $_GET["jreview"];
+        $in_redwhite = $_GET["jredwhite"];
+        $in_price    = $_GET["jprice"];
       }
 
 # -------------------------------------------------------------------------------
@@ -116,11 +122,13 @@
         echo "<td>Country</td>";
         echo "<td>Region</td>";
         echo "<td>Review</td>";
+        echo "<td>RedWhite</td>";
+        echo "<td>Price</td>";
       echo "</tr>";
 
       foreach ($wines as $row) {
         echo "<tr >";
-          for ($i=0; $i<=10; $i++) {
+          for ($i=0; $i<=12; $i++) {
             echo "<td> $row[$i] </td>";
             if ($i == 4) { $junk = $row[4]; }
             if ($row[4] == "Empty") { $addwines = 1; }
@@ -142,7 +150,7 @@
  #---------------------------------------------------------------------------------
  #    No need to update the ID, col or row.  We have found by id and inserting by id.
  #---------------------------------------------------------------------------------
-          $upquery = "UPDATE CellarContents SET Date='$in_date', Winery='$in_winery', WineName='$in_winename', Varietal='$in_varietal', Year='$in_year', Country='$in_country', Region='$in_region', Review='$in_review' WHERE ID = $startid";
+          $upquery = "UPDATE CellarContents SET Date='$in_date', Winery='$in_winery', WineName='$in_winename', Varietal='$in_varietal', Year='$in_year', Country='$in_country', Region='$in_region', Review='$in_review', RedWhite='$in_redwhite', Price='$in_price' WHERE ID = $startid";
 
 #  stmt means STatement Handle
             

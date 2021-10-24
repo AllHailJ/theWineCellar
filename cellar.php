@@ -3,7 +3,7 @@
 <?php include("style.php") ?>
 
   <form target="_self">
-    Col:<input type="number" size="2" maxlength="2" min="1" max= "31" value="1" name="icol">
+    Col:<input type="number" size="2" maxlength="2" min="1" max= "31" name="icol">
 <!--    Row:<input type="number" size="2" maxlength="2" min="1" max= "23" name="irow"> -->
     <input type="submit" name="submit" id="submit" value="submit">
   </form>
@@ -57,11 +57,23 @@
         echo "<td>Country</td>";
         echo "<td>Region</td>";
         echo "<td>Review</td>";
+        echo "<td>Red-White</td>";
+        echo "<td>Price</td>";
       echo "</tr>";
 
       foreach ($wines as $row) {
         echo "<tr >";
-          for ($i=0; $i<=10; $i++) {
+          for ($i=0; $i<=12; $i++) {
+            if ($i == 6) { 
+              $row[6] = str_replace("z t", "zt", $row[6]);
+              $row[6] = str_replace("d o", "do", $row[6]);
+              $row[6] = str_replace("u v", "uv", $row[6]);
+              $row[6] = str_replace("i t", "it", $row[6]);
+              $row[6] = str_replace("m p", "mp", $row[6]);
+              $row[6] = str_replace("n f", "nf", $row[6]);
+              $row[6] = str_replace("p r", "pr", $row[6]);
+              $row[6] = str_replace("i o", "io", $row[6]);
+            }
             echo "<td> $row[$i] </td>";
           }
         echo "</tr>";

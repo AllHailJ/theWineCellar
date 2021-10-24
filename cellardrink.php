@@ -87,11 +87,13 @@
         echo "<td>Country</td>";
         echo "<td>Region</td>";
         echo "<td>Review</td>";
+        echo "<td>RedWhite</td>";
+        echo "<td>Price</td>";
       echo "</tr>";
 
       foreach ($wines as $row) {
         echo "<tr >";
-          for ($i=0; $i<=10; $i++) {
+          for ($i=0; $i<=12; $i++) {
             echo "<td> $row[$i] </td>";
             if ($i == 3) {$in_date = $row[3];}
             if ($i == 4) {$in_winery = $row[4];}
@@ -101,6 +103,8 @@
             if ($i == 8) {$in_country = $row[8];}
             if ($i == 9) {$in_region = $row[9];}
             if ($i == 10) {$in_review = $row[10];}
+            if ($i == 11) {$in_redwhite = $row[11];}
+            if ($i == 12) {$in_price = $row[12];}
             if (($row[4] !== "Empty") && ($row[4] !== "N/A")) { $drinkwines = 1; }
           }
         echo "</tr>";
@@ -120,7 +124,7 @@
 #---------------------------------------------------------------------------------
 #    No need to update the ID, col or row.  We have found by id and inserting by id.
 #---------------------------------------------------------------------------------
-          $upquery = "UPDATE CellarContents SET Date='.', Winery='Empty', WineName='.', Varietal='.', Year='0', Country='.', Region='.', Review='.' WHERE ID = $startid";
+          $upquery = "UPDATE CellarContents SET Date='.', Winery='Empty', WineName='.', Varietal='.', Year='0', Country='.', Region='.', Review='.', RedWhite='.', Price='.' WHERE ID = $startid";
 
 #  stmt means STatement Handle
             
@@ -130,9 +134,8 @@
 #    Now we execute the update statement and commit it.
 #---------------------------------------------------------------------------------
           $stmt1->execute();
-#          $stmt1->commit();
 
-          $drinkquery = "INSERT INTO WineConsumed (cColumn, cRow, ldDate, cWinery, cWineName, cVarietal, cYear, cCountry, cRegion, cReview, cDate) VALUES('$selectcol', '$selectrow', '$in_date', '$in_winery', '$in_winename', '$in_varietal', '$in_year', '$in_country', '$in_region', '$in_review', '$in_date1')";
+          $drinkquery = "INSERT INTO WineConsumed (cColumn, cRow, ldDate, cWinery, cWineName, cVarietal, cYear, cCountry, cRegion, cReview, cDate, cRedWhite, cPrice) VALUES('$selectcol', '$selectrow', '$in_date', '$in_winery', '$in_winename', '$in_varietal', '$in_year', '$in_country', '$in_region', '$in_review', '$in_date1', '$in_redwhite', '$in_price')";
 
 
           $stmt2 = $db->prepare($drinkquery);
@@ -141,7 +144,6 @@
 #    Now we execute the drink query insert statement and commit it.
 #---------------------------------------------------------------------------------
          $stmt2->execute();
-#         $stmt2->commit();             
 
        }
         

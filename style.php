@@ -27,7 +27,7 @@ header {
 nav {
   float: left;
   padding: 5px;
-  width: 10%;
+  width: 5%;
   background: #ccc;
 }
 

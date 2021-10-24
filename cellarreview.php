@@ -38,7 +38,7 @@
 #   Get White Wine
 # -------------------------------------------------------------------------------      
 
-      $query = "SELECT count(DISTINCT(Varietal)) FROM CellarContents WHERE Varietal LIKE 'Rose' OR Varietal LIKE 'Chardonnay' OR Varietal LIKE 'White Zinfandel' OR Varietal LIKE 'Grenache Gris' OR Varietal LIKE 'Champagne' OR Varietal LIKE 'Riesling' OR Varietal LIKE 'Gewurztraminer' OR Varietal LIKE 'Sauvignon Blanc' OR Varietal LIKE 'Semillon' OR Varietal LIKE 'Pinot Grigio' OR Varietal LIKE 'Chablis' OR Varietal LIKE 'Chenin Blanc'";
+      $query = "SELECT count(Varietal) FROM CellarContents WHERE RedWhite LIKE 'White'";
      
       $stmt = $db->prepare($query);
      
@@ -51,7 +51,39 @@
       }
  
       $red = $count - $white;
+
+# -------------------------------------------------------------------------------
+#   Get Varietal
+# -------------------------------------------------------------------------------      
+
+      $query = "SELECT count(DISTINCT(Varietal)) FROM CellarContents WHERE Winery NOT LIKE 'Empty' AND Winery NOT LIKE 'N/A'";
+     
+      $stmt = $db->prepare($query);
+     
+      $stmt->execute(); 
+            
+      $wines = $stmt->fetchAll(PDO::FETCH_NUM);
       
+      foreach ($wines as $row) {
+        $varietal = $row[0];
+      }      
+
+# -------------------------------------------------------------------------------
+#   Get Winecellar Value
+# -------------------------------------------------------------------------------      
+
+      $query = "SELECT sum(Price) FROM CellarContents";
+     
+      $stmt = $db->prepare($query);
+     
+      $stmt->execute(); 
+            
+      $wines = $stmt->fetchAll(PDO::FETCH_NUM);
+      
+      foreach ($wines as $row) {
+        $value = $row[0];
+      }      
+
 # -------------------------------------------------------------------------------
 #   Get The Countries
 # -------------------------------------------------------------------------------      
@@ -68,21 +100,25 @@
         $country = $row[0];
       }
       
-      echo "<table border=1 style='width:20%;'>";
+      echo "<table border=1 style='width:25%;'>";
       
         echo "<tr>";
           echo "<td>Bottles</td>";
           echo "<td>Red</td>";            
-          echo "<td>White</td>";            
-          echo "<td>Country</td>";            
+          echo "<td>White</td>";
+          echo "<td>Varietal</td>";            
+          echo "<td>Country</td>";
+          echo "<td>CellarValue</td>";            
         echo "</tr>";
 
         echo "<tr >";
-          for ($i=1; $i<=4; $i++) {
+          for ($i=1; $i<=6; $i++) {
             if ($i = 1) {echo "<td> $count </td>";}
             if ($i = 2) {echo "<td> $red </td>";}
             if ($i = 3) {echo "<td> $white </td>";}
-            if ($i = 4) {echo "<td> $country </td>";}
+            if ($i = 4) {echo "<td> $varietal </td>";}
+            if ($i = 5) {echo "<td> $country </td>";}
+            if ($i = 6) {echo "<td> $ $value </td>";}
           }
         echo "</tr>";
 
@@ -100,23 +136,55 @@
       
       $wines = $stmt->fetchAll(PDO::FETCH_NUM);
  
-      echo "<table border=1 style='width:12%;'>";
+      echo "<table border=1 style='width:60%;'>";
       
         echo "<tr>";
-          echo "<td>Country</td>";
-          echo "<td>Count</td>";            
-        echo "</tr>";
-
+        echo "<td>Country</td>";
         foreach ($wines as $row) {
-          echo "<tr >";
-            for ($i=0; $i<=1; $i++) {
-              echo "<td> $row[$i] </td>";
-            }
-          echo "</tr>";
+          echo "<td> $row[0] </td>";
         }
+        echo "</tr>";
+                 
+        echo "<tr>";
+        echo "<td>Count</td>";
+        foreach ($wines as $row) {
+          echo "<td> $row[1] </td>";
+        }
+        echo "</tr>";
 
       echo"</table>";      
 
+
+# -------------------------------------------------------------------------------
+#   Get wines by Varietal
+# -------------------------------------------------------------------------------      
+#
+      $query = "SELECT Varietal,count(*) FROM CellarContents WHERE Winery NOT LIKE 'Empty' AND Winery NOT LIKE 'N/A' GROUP BY Varietal";
+
+      $stmt = $db->prepare($query);
+
+      $stmt->execute();
+      
+      $wines = $stmt->fetchAll(PDO::FETCH_NUM);
+ 
+      echo "<table border=1 style='width:50%;'>";
+
+        echo "<tr>";
+        echo "<td>Varietal</td>";
+        foreach ($wines as $row) {
+          echo "<td> $row[0] </td>";
+        }
+        echo "</tr>";
+                 
+        echo "<tr>";
+        echo "<td>Count</td>";
+        foreach ($wines as $row) {
+          echo "<td> $row[1] </td>";
+        }
+        echo "</tr>";
+      
+      echo"</table>"; 
+      
       $db = null; //close the database
 
   ?>
